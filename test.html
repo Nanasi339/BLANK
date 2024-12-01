@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>メインメニュー</title>
+		<title>BLANK</title>
 		
 		<!--BootStrap使用-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -34,8 +34,8 @@
 			</div>
 		</nav>
 
-		<h1>メインメニュー</h1>
-		<h2>Webサイトの作り方</h2>
+		<h1>dummy</h1>
+		<h2>dummy1</h2>
 		<h2>dummy2</h2>
 		<p>ダミー文章を表示しています</p>
 
@@ -65,22 +65,44 @@
 		</ul>
 		
 		<!--フォーム-->
-		<form action="#">
-			<label for="message">1行メッセージ</label>
-			<!--入力-->
-			<input type="text" name="message" id="message">
-			<button type="submit">送信する</button>
+		<form action="#" method="post">
+			<div class="form-group">
+				<label for="message">1行メッセージ</label>
+				<!--入力-->
+				<input type="text" name="message" id="message">
+				<button type="submit">送信する</button>
 
-			<!--複数行入力-->
-			<textarea name="message" id="message" rows="3"></textarea>
+				<!--複数行入力-->
+				<textarea name="message" id="message" rows="3"></textarea>
 
-			<!--プルダウンメニュー-->
-			<select class="form-control" name="select" id="select">
-				<option>タマ</option>
-				<option>ミケ</option>
-				<option>トラ</option>
-			</select>
+				<!--プルダウンメニュー-->
+				<select class="form-control" name="select" id="select">
+					<option>タマ</option>
+					<option>ミケ</option>
+					<option>トラ</option>
+				</select>
+			</div>
 		</form>
+
+	<!--グリッドフォーム-->
+	<div class="container">
+		<div class="starter-template">
+			<h1>1行掲示板</h1>
+			<form class="form-horizontal" action="#">
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="title">コメント</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="comment" id="title">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit">送信する</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
 	</body>
 
