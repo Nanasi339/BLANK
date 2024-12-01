@@ -1,5 +1,5 @@
 rem @echo off
 git add .
-git commit -m "ã‚¯ã‚¤ãƒƒã‚¯æ›´æ–°ãƒ†ã‚¹ãƒˆ"
+git commit -m "ƒNƒCƒbƒNXVƒeƒXƒg"
 git push origin
 pause
