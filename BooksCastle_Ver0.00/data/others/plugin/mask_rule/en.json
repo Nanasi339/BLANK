@@ -1,0 +1,15 @@
+{
+  "ルールマスクプラグイン": "Mask Transitions Plugin",
+  "ルール画像を使ったマスクに関するコンポーネントを追加できる": "Adds components to use mask images with transitions.",
+  "ルールマスク": "Mask Transition",
+  "ルール画像を使用した背景の変更を行うことができます。": "Use to transition the background while applying a mask image.",
+  "マスク画像": "Mask image",
+  "指定した画像でマスクをかけます。": "The specified image will be used as a mask.",
+  "ルール画像": "Mask Image",
+  "トランジションで使用するルール画像を設定しいます": "Set the mask image to be used for the transition.",
+  "指定した時間をかけてマスクがかかります": "The mask will be applied over the specified duration.",
+  "マスク色": "Mask color",
+  "ルールマスク解除": "Delete image mask",
+  "ルールマスクを解除することができます。":"Deletes the image mask.",
+  "": ""
+}

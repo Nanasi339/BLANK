@@ -1,0 +1,20 @@
+{
+  "スリープ＆アウェイク": "Sleep and Awake",
+  "ゲームの状態を一時保存した状態で他のシナリオに移動することができるようになります。アウェイクのタイミングでスリープを実行した状態に即座に復帰できます。": "Allows you to temporarily save the game state and switch to another scenario. Use Awake Game to return back to the state where Sleep Game was executed.",
+  "スリープゲーム": "Sleep Game",
+  "ゲームの状態を保存して、他のシナリオへジャンプすることができます。「アウェイク」で復帰します": "Save the game state and jump to other scenarios. Use Awake Game to return.",
+  "スリープに発動条件を付けたい場合、ここにスクリプト条件式を記述してください。条件が真の場合のみジャンプします": "",
+ 
+  "アウェイクゲーム": "Awake Game",
+  "スリープゲームを実行した状態に戻ります": "Returns to the state at which the Sleep Game component was executed.",
+  
+  "スリープ中のゲーム変数への変更を引き継ぐ": "Preserve Game Variable Values while Asleep",
+  "スリープ中のBGMを維持する": "Continue Playing BGM while Asleep",
+  "復帰時に自動的に次の命令へ移動する": "Proceed on Awaking",
+  "フラグ判定用の式": "Flag State Formula",
+  "スリープに発動条件を付けたい場合、ここにスクリプト条件式を記述してください。条件が真の場合のみジャンプします":"To apply trigger conditions to Sleep, write the script here. The jump will happen only if the conditions are true.",
+  "ブレイクゲーム":" Break Game",
+  "スリープゲーム実行後、アウェイクゲームを実行しない場合は、ブレイクゲームを配置する必要があります。":"Use this if you do not wish to use Awake Game after using Sleep Game.",
+  "":"",
+  "": ""
+}

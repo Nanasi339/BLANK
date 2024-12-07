@@ -1,0 +1,153 @@
+/*
+ * 全般
+ */
+
+.qte-plugin-item,
+.qte-plugin-item div {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 0px;
+  height: 0px;
+}
+
+/*
+ * タップ
+ */
+
+.qte-tap {
+  z-index: 99999999;
+  cursor: pointer;
+  transform-origin: center center;
+}
+  .qte-tap .qte-tap-inner {
+    transform-origin: center center;
+    width: 100%;
+    height: 100%;
+  }
+  .qte-tap .qte-tap-inner.qte-tap-anim {
+    animation: qte-tap-anim 300ms 1 ease-out;
+  }
+  
+  .qte-tap .qte-tap-image {
+    position: absolute;
+  }
+
+  .qte-tap .qte-tap-text {
+    line-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0px 0px 5px black);
+  }
+
+  .qte-tap .qte-tap-circle {
+    position: absolute;
+    pointer-events: none;
+    filter: drop-shadow(0px 0px 5px black);
+  }
+
+/*
+ * コマンド
+ */
+
+/* 全体のラッパー */
+.qte-command {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  /* 1文字1文字のコンテナ */
+  .qte-command .qte-command-char {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    color: white;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    pointer-events: none;
+    /* font-weight: bold; */
+    /* border: 2px solid white; */
+    /* border-radius: 20px; */
+    /* filter: drop-shadow(0px 0px 5px black); */
+  }
+
+  /* activeクラス：いま入力しなければいけないアクティブなキー */
+  .qte-command .qte-command-char.active {
+  }
+
+  /* aheadクラス：まだ入力する必要のないキー（アクティブの右側） */
+  .qte-command .qte-command-char.ahead {
+  }
+
+  /* behindクラス：すでに入力したキー（アクティブの左側） */
+  .qte-command .qte-command-char.behind {
+  }
+
+  /* 仮想キー入力ボタン */
+  .qte-virturl-key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+/*
+ * ゲージ
+ */
+
+.qte-gauge {
+}
+
+  .qte-gauge .qte-gauge-border {
+    box-sizing: border-box;
+
+  }
+
+    .qte-gauge .qte-gauge-border-inner {
+      box-sizing: border-box;
+    }
+
+  .qte-gauge .qte-gauge-outer-bg {
+    background-position-x: left;
+    background-position-y: top;
+    background-repeat: repeat;
+    background-size: 100% 100%;
+  }
+
+  .qte-gauge .qte-gauge-inner-bg {
+  }
+
+  .qte-gauge .qte-gauge-gauge {
+    background: #FF0010;
+    visibility: visible;
+    background-position-x: left;
+    background-position-y: top;
+    background-repeat: repeat;
+    background-size: cover;
+  }
+
+  .qte-gauge .qte-gauge-bar {
+    background: white;
+    background-position-x: left;
+    background-position-y: top;
+    background-repeat: repeat;
+    background-size: 100% 100%;
+    padding: 0px;
+  }
+
+  @keyframes qte-tap-anim {
+    0% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }

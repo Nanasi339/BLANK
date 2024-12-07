@@ -1,0 +1,12 @@
+{
+  "ルール背景変更": "Bkg Mask Transition",
+  "ルール画像を使った背景変更に関するコンポーネントを追加できる": "Transition the background using a mask image.",
+  "ルール画像を使用した背景の変更を行うことができます。":"Transition the background using a mask image.",
+  "ルール画像":"rule image",
+  "トランジションで使用するルール画像を設定します":"Set the mask image to be used for the transition.",
+  "演出スキップの可否":"Toggle Skip",
+  "切り替え中にクリックすることで演出をスキップできるようにするか否か":"Enable or disable skipping of the transition by clicking while it is in progress", 
+  "切り替え完了まで進行を待機するか否か":"Set whether or not to wait until the transition is complete before proceeding.",
+
+  "": ""
+}

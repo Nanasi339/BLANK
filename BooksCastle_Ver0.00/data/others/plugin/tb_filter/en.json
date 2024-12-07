@@ -1,0 +1,30 @@
+{
+  "フィルター":"Screen Filters",
+  "ゲーム画面にフィルターをかけるコンポーネントが追加されます。効果はグレースケール・セピア・階調反転・透明度・ぼかし":"Adds filters to the game screen. Available effects are: grayscale, sepia, gradation inversion, transparency, and blurring.",
+  
+  "効果値":"Value",
+  "グレースケール効果":"Grayscale Filter",
+  "ゲーム画面にグレースケール効果をかけるコンポーネントが追加されます":"Applies a grayscale effect.",
+  
+  "セピア効果":"Sepia Filter",
+  "ゲーム画面にセピア効果をかけるコンポーネントが追加されます":"Applies a sepia effect.",
+  
+  "階調反転効果":"Inv Gradient Filter",
+  "ゲーム画面に階調反転効果をかけるコンポーネントが追加されます":"Applies a gradation effect.",
+  
+  "透過効果":"Transparency Filter",
+  "ゲーム画面に透過効果をかけるコンポーネントが追加されます":"Applies a transparency effect.",
+  
+  "ぼかし効果":"Blur Filter",
+  "ゲーム画面にぼかし効果をかけるコンポーネントが追加されます":"Applies a blur effect.",
+  
+  "フィルター解除":"Remove Filter",
+  "ゲーム画面のフィルター効果を解除できます。nameを指定すると特定のフィルターのみ解除することも可能":"Remove the filter effect from the game screen. A specific filters can be removed by specifying the name of the filter.",
+  
+  "特定のレイヤのみに効果を与えることができます":"Effects can be applied to specific layers.",
+  "フィルター効果を確認する":"Confirm Filter Effect",
+  "フィルター名を指定":"Set Filter Name",
+  "効果のかかり方を設定できます":"Set how the filter is applied. ",
+  "":""
+  
+}

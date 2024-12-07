@@ -1,0 +1,5 @@
+[preload  storage="./data/bgimage/本屋1.jpg"  ]
+[preload  storage="./data/bgimage/赤192.jpg"  ]
+[preload  storage="./data/bgimage/l01.png"  ]
+[preload  storage="./data/fgimage/default/BOOKSCASTLE_A.gif"  ]
+[return]

@@ -1,0 +1,25 @@
+{
+  "セルアニメ": "Sprite Sheets",
+  "セルアニメーションをゲームに表示できます": "Use sprite sheets your game.",
+  "セルアニメ定義": "Sprite Sheet Settings",
+  "セルアニメを使用する準備を行います":"Set the Sprite Sheets parameters.",
+  "セルアニメID": "Sprite Sheet ID",
+  "セルアニメ表示": "Use Sprite Sheet",
+  "セルアニメを表示します。": "Display a sprite using a sprite sheet.",
+  "セルアニメ削除": "Remove Sprite Sheet",
+  "セルアニメをすべて非表示にします。": "Remove all sheet-based sprites.",
+  
+  "コマ一つあたりの横幅": "Sprite Width",
+  "セルアニメのコマ一つあたりの横幅を入力してください。": "Please enter the width per sprite.",
+  "コマ一つあたりの高さ": "Sprite Height",
+  "セルアニメのコマ一つあたりの高さを入力してください。": "Please enter the height per sprite.",
+  "セルアニメを表示するX座標を設定":"Set the sprite x coordinate.",
+  "セルアニメを表示するY座標を設定":"Set the sprite y coordinate.",
+  "セルアニメの縦幅を指定します":"Set the sprite height.",
+  "セルアニメの横幅を指定します":"Set the sprite width.",
+  "繰り返し回数":"Loop",
+  "回":"times",
+  "再生速度倍率。１が基準":"Playback speed. Default is 1.",
+  "再生完了後に削除する": "Delete after playing",
+  "": ""
+}

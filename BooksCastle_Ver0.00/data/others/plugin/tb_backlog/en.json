@@ -1,0 +1,14 @@
+{
+  "バックログ拡張プラグイン": "Expanded Backlog Functionality",
+  "バックログを一時的に記録停止・再開するコンポーネント。また、好きなタイミングでバックログに追加できる機能が追加されます": "Adds components to temporarily stop and restart writing to the backlog. Also allows you to add your own text to the backlog.",
+  "バックログ記録停止": "Suspend Backlog",
+  "この場所から「バックログ記録再開」コンポーネントまでの間、バックログに記録されなくなります。": "Stops writing to the backlog until the Resume Writing to Backlog component is  run.",
+  "バックログ記録再開": "Resume Backlog",
+  "バックログの記録がここから再開されます。": "Writing to backlog will resume when this component is executed.",
+  "バックログ追加": "Insert into Backlog",
+  "バックログに好きな文字列を追加できます。": "Add your own string of text to the backlog.",
+  "バックログに追加する文章":"Insert text into the backlog",
+  "前の文章に連結して追加する":"Attach to the previous text",
+  "":"",
+  "": ""
+}

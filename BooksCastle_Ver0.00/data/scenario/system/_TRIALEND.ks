@@ -1,0 +1,5 @@
+[preload  storage="./data/bgimage/白293.jpg"  ]
+[preload  storage="./data/fgimage/chara/3/2020-12-21-8.png"  ]
+[preload  storage="./data/bgimage/白294.jpg"  ]
+[preload  storage="./data/fgimage/default/BOOKSCASTLE_A.gif"  ]
+[return]

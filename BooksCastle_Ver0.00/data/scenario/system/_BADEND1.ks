@@ -1,0 +1,7 @@
+[preload  storage="./data/bgimage/白293.jpg"  ]
+[preload  storage="./data/bgimage/白294.jpg"  ]
+[preload  storage="./data/fgimage/chara/3/2020-12-21-21.png"  ]
+[preload  storage="./data/fgimage/chara/3/2021-02-17-45.png"  ]
+[preload  storage="./data/fgimage/chara/3/2021-02-17-43.png"  ]
+[preload  storage="./data/fgimage/chara/3/2020-12-21-8.png"  ]
+[return]
