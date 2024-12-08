@@ -3,87 +3,116 @@
 
 	<head>
 		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"><!---ブラウザエミュレート　この場合はIEなら最新バージョンで表示-->
+		<meta name="viewport" content="width=device-width, initial-scale=1"><!--ビューポート　幅をデバイスに合わせる　文字倍率1倍-->
 		<title>メインメニュー</title>
 		
 		<!--BootStrap使用-->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<!-- bootstrapはクラスを指定のものにすることでCSSを適用できる -->
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+		 <!-- 最新バージョン5.3.0を使用 -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 	</head>
 
-	<body>
-		<!--ナビゲーションバー-->
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Project BLANK</a>
-				</div>
-				<div id="navbar" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#list">List</a></li>
-						<li><a href="#table">Table</a></li>
-						<li><a href="#form">Form</a></li>
+	<div class="p-3 mb-2 bg-dark text-white">
+		<body>
+			<!--ナビゲーションバー-->
+			<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+				<div class="container-fluid">
+				<a class="navbar-brand" href="#">BLANK</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Dropdown
+						</a>
+						<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Action</a></li>
+						<li><a class="dropdown-item" href="#">Another action</a></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="#">Something else here</a></li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled">Disabled</a>
+					</li>
 					</ul>
+					<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+					</form>
 				</div>
-				<!--/.nav-collapse -->
-			</div>
-		</nav>
+				</div>
+			</nav>
 
-		<h1>メインメニュー</h1>
-		<h2>Webサイトの作り方</h2>
-		<h2>dummy2</h2>
-		<p>ダミー文章を表示しています</p>
-		<a href="https://nanasi339.github.io/BLANK/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.html">メインメニュー</a>
-		<a href="https://nanasi339.github.io/BLANK/BooksCastle_Ver0.00/index.html">BookCastle体験版</a>
+			<h1>メインメニュー</h1>
+			<!-- <h2>Webサイトの作り方</h2>
+			<h2>dummy2</h2>
+			<p>ダミー文章を表示しています</p> -->
+			<a href="https://nanasi339.github.io/BLANK/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.html">メインメニュー</a><br>
+			<a href="https://nanasi339.github.io/BLANK/BooksCastle_Ver0.00/index.html">BookCastle体験版</a>
 
-		<!--テーブル-->
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>ダミーヘッド</th>
-					<th>ダミーヘッド2</th>
-				</tr>
-			</thead>
+			<!--テーブル-->
+			<!-- <table class="table table-striped">
+				<thead>
+					<tr>
+						<th class="bg-dark text-white">ダミーヘッド</th>
+						<th class="bg-dark text-white">ダミーヘッド2</th>
+					</tr>
+				</thead>
 
-			<tbody>
-				<tr>
-					<td>ダミーボディ</td>
-					<td>ダミーボディ2</td>
-				</tr>
-			</tbody>
-		</table>
+				<tbody>
+					<tr>
+						<td class="bg-dark text-white">ダミーボディ</td>
+						<td class="bg-dark text-white">ダミーボディ2</td>
+					</tr>
+				</tbody>
+			</table> -->
 
-		<!--リスト-->
-		<h2 id="list">dummylist</h2>
-		<ul class="list-group">
-			<li class="list-group-item">リスト1</li>
-			<li class="list-group-item">リスト2</li>
-			<li class="list-group-item">リスト3</li>
-		</ul>
-		
-		<!--フォーム-->
-		<form action="#">
-			<label for="message">1行メッセージ</label>
-			<!--入力-->
-			<input type="text" name="message" id="message">
-			<button type="submit">送信する</button>
+			<!--リスト-->
+			<!-- <h2 id="list">dummylist</h2>
+			<ul class="list-group">
+				<li class="list-group-item bg-dark text-white">リスト1</li>
+				<li class="list-group-item bg-dark text-white">リスト2</li>
+				<li class="list-group-item bg-dark text-white">リスト3</li>
+			</ul> -->
+			
+			<!--フォーム-->
+			<!-- <form action="#">
+				<label for="message">1行メッセージ</label> -->
+				<!--入力-->
+				<!-- <input type="text" name="message" id="message">
+				<button type="submit" class="bg-dark text-white">送信する</button> -->
 
-			<!--複数行入力-->
-			<textarea name="message" id="message" rows="3"></textarea>
+				<!--複数行入力-->
+				<!-- <textarea name="message" id="message" rows="3"></textarea> -->
 
-			<!--プルダウンメニュー-->
-			<select class="form-control" name="select" id="select">
-				<option>タマ</option>
-				<option>ミケ</option>
-				<option>トラ</option>
-			</select>
-		</form>
+				<!--プルダウンメニュー-->
+				<!-- <select class="form-control bg-dark text-white" name="select" id="select">
+					<option>タマ</option>
+					<option>ミケ</option>
+					<option>トラ</option>
+				</select>
+			</form> -->
 
-	</body>
+			<!-- 旧式の為使用しない -->
+			<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+			<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+			<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script> -->
 
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+		</body>
+	</div>
 </html>
