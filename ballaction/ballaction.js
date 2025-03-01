@@ -47,7 +47,7 @@ function setup() {
     var SND = ["bgm", "win", "lose", "se_shot", "se_hit", "se_recover"]
     for(var i=0; i<SND.length; i++) loadSound(i, "sound/"+SND[i]+".m4a");
     initVar();
-    //setFPS(60);
+    setFPS(60);
 }
 
 //メインループ
@@ -176,6 +176,8 @@ function drawBall() {
         }
         else {
             drawImgC(i+1, ballX[i], ballY[i]);
+            lineW(3);
+            sCir(ballX[i], ballY[i], 39, TEAM_COL[G_OR_B[i]])
             fText(life[i],ballX[i], ballY[i]+24,24,"lime");
         }
         
@@ -291,7 +293,8 @@ function myball() {//ボールを引っ張って飛ばす関数
     return false;
 }
 
-function hitBall(n1, n2) {//ボールの衝突時に耐力計算を行う関数
+function hitBall(n1, n2) {//ボールの衝突時に体力計算を行う関数
+    if(eff_tmr[n2] > 0)return;
     if(G_OR_B[n2] == ally) {//味方に当てた
         if(CURE[n1] > 0) {
             life[n2] += CURE[n1];
