@@ -42,8 +42,8 @@ var tmr = 0;
 //起動時の処理
 function setup() {
     canvasSize(1200, 800);
-    loadImg(0, "Image/bg.png");
-    for(var i=0;i<BALL_MAX;i++) loadImg(1+i, "Image/ball"+i+".png");
+    loadImg(0, "image/bg.png");
+    for(var i=0;i<BALL_MAX;i++) loadImg(1+i, "image/ball"+i+".png");
     var SND = ["bgm", "win", "lose", "se_shot", "se_hit", "se_recover"]
     for(var i=0; i<SND.length; i++) loadSound(i, "sound/"+SND[i]+".m4a");
     initVar();
