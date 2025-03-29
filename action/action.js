@@ -106,7 +106,7 @@ function mainloop() {
         if(tmr == 90) playSE(5);
         if(tmr > 100) {
             fText("GAME OVER", 540, 240, 60, "red");
-            fText("Retry? [Y}or[N]", 540, 400, 40, "lime");
+            fText("Retry? [Y]or[N]", 540, 400, 40, "lime");
             if(inkey == 89) {
                 idx = 1;
                 tmr = 0;
