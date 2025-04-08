@@ -11,7 +11,7 @@ function setup() {
     loadSound(0, "sound/bgm.m4a");
     loadSound(1, "sound/se.m4a");
     initVar();
-    setFPS(60);
+    // setFPS(60);
 }
 
 //メインループ

@@ -16,7 +16,7 @@ function setup(){                                                   //初期設�
     initMissile();                                                  //弾を初期化
     initObject();                                                   //物体を初期化
     initEffect();                                                   //エフェクトを初期化
-    setFPS(60);
+    // setFPS(60);
 }
 
 //メインループ　毎フレーム実行する処理

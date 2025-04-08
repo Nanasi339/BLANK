@@ -15,7 +15,7 @@ function setup() {
     lineW(3);                                                                   //図形の線の太さを指定
     loadImg(0, "Image/bg.png")                                                  //背景画像を読み込む
     loadSound(0, "sound/se.m4a");
-    setFPS(60);
+    // setFPS(60);
 }
 
 //メインループ

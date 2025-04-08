@@ -47,7 +47,7 @@ function setup() {
     var SND = ["bgm", "win", "lose", "se_shot", "se_hit", "se_recover"]
     for(var i=0; i<SND.length; i++) loadSound(i, "sound/"+SND[i]+".m4a");
     initVar();
-    setFPS(60);
+    // setFPS(60);
 }
 
 //メインループ
