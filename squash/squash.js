@@ -13,7 +13,7 @@ var scene = 0;                                                                  
 function setup() {
     canvasSize(1200,800);                                                       //画面サイズの指定
     lineW(3);                                                                   //図形の線の太さを指定
-    loadImg(0, "Image/bg.png")                                                  //背景画像を読み込む
+    loadImg(0, "image/bg.png")                                                  //背景画像を読み込む
     loadSound(0, "sound/se.m4a");
     // setFPS(60);
 }
