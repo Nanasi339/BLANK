@@ -1,0 +1,376 @@
+:root {
+    --font-main: 'Zen Kaku Gothic New', sans-serif;
+    --color-ocean-deep: #0f1c2e;
+    --color-ocean-surface: #1f3b5e;
+    --color-text: #e0e6ed;
+    --color-accent: #64ffda;
+    --glass-bg: rgba(20, 30, 50, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-main);
+    background-color: var(--color-ocean-deep);
+    color: var(--color-text);
+}
+
+#app {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#ocean-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: linear-gradient(180deg, #020024 0%, #090979 35%, #00d4ff 100%);
+    /* Deep Ocean */
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through empty areas */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* Place at bottom */
+    padding-bottom: 5vh;
+}
+
+/* Explicitly enable pointer events on interactive containers */
+.top-bar,
+.input-card,
+.modal {
+    pointer-events: auto !important;
+}
+
+/* Ensure children inherit or set auto */
+button,
+input,
+textarea {
+    pointer-events: auto !important;
+}
+
+.top-bar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 20;
+}
+
+#menu-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.2s;
+}
+
+#menu-btn:hover {
+    background: var(--color-accent);
+    color: var(--color-ocean-deep);
+}
+
+#current-ocean-name {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Input Card Styling */
+.input-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.input-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.input-card h2 {
+    font-weight: 300;
+    margin-bottom: 16px;
+    color: var(--color-accent);
+    text-align: center;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+}
+
+textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: #fff;
+    padding: 12px;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    resize: none;
+    margin-bottom: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    border-color: var(--color-accent);
+}
+
+.control-group {
+    margin-bottom: 16px;
+}
+
+.control-group label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    opacity: 0.8;
+}
+
+/* Emotion Buttons */
+.emotion-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.emotion-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.emotion-btn:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.emotion-btn.active {
+    background: var(--btn-color);
+    border-color: var(--btn-color);
+    opacity: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px var(--btn-color);
+}
+
+/* Slider and Submit */
+input[type="range"] {
+    width: calc(100% - 40px);
+    margin-right: 10px;
+}
+
+#intensity-display {
+    font-weight: bold;
+    color: var(--color-accent);
+}
+
+#submit-btn {
+    width: 100%;
+    background: linear-gradient(45deg, var(--color-ocean-surface), var(--color-ocean-deep));
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+}
+
+#submit-btn:hover {
+    background: var(--color-accent);
+    color: var(--color-ocean-deep);
+    box-shadow: 0 0 15px var(--color-accent);
+}
+
+/* Modal */
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.modal.hidden {
+    opacity: 0;
+    pointer-events: none !important;
+    visibility: hidden;
+}
+
+.modal-content {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    backdrop-filter: blur(15px);
+}
+
+.modal-content h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--color-text);
+}
+
+.ocean-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ocean-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ocean-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ocean-item.active {
+    background: rgba(100, 255, 218, 0.2);
+    border: 1px solid var(--color-accent);
+}
+
+.ocean-actions button {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.ocean-actions button:hover {
+    color: #ef5350;
+}
+
+.new-ocean-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.new-ocean-form input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid #444;
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.new-ocean-form button {
+    background: var(--color-accent);
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#close-modal-btn {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid #555;
+    color: #aaa;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#close-modal-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+/* Data Management */
+.data-actions {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+    padding-top: 20px;
+    margin-bottom: 20px;
+}
+
+.data-actions h4 {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    color: #ccc;
+    font-weight: normal;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.secondary-btn {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--color-text);
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--color-accent);
+}

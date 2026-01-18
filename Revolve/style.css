@@ -1,0 +1,489 @@
+:root {
+    --bg-color: #0f111a;
+    --panel-bg: #1a1d2d;
+    --text-color: #e0e0e0;
+    --accent-color: #00d9f7;
+    --shoot-color: #ff4757;
+    --dodge-color: #3742fa;
+    --reload-color: #2ed573;
+    --skill-color: #ffa502;
+    /* Orange for Skills */
+    --slot-empty: #2f3542;
+    --border-color: #57606f;
+
+    --font-main: 'Roboto', sans-serif;
+    --font-display: 'Orbitron', sans-serif;
+}
+
+/* Common Utilities */
+.hidden {
+    display: none !important;
+}
+
+.pulse {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 217, 247, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 217, 247, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 217, 247, 0);
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    position: relative;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+}
+
+/* Setup Screen */
+#setup-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #0f111a 0%, #1a1d2d 100%);
+    z-index: 10;
+}
+
+.title-large {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--accent-color);
+    text-shadow: 0 0 20px var(--accent-color);
+    margin-bottom: 3rem;
+    letter-spacing: 4px;
+}
+
+.setup-form {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.setup-input {
+    padding: 0.8rem;
+    background: #0f111a;
+    border: 1px solid var(--accent-color);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    border-radius: 4px;
+    outline: none;
+}
+
+.debug-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #888;
+    justify-content: flex-end;
+}
+
+.description-box {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #ccc;
+    text-align: center;
+    min-height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: pre-line;
+}
+
+#setup-description {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#battle-description {
+    margin-top: 0.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    /* Prevent layout shift: always take space */
+    visibility: visible;
+}
+
+/* Main UI adjustments */
+header {
+    padding: 1rem;
+    border-bottom: 2px solid var(--border-color);
+    background: var(--panel-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    font-size: 1.5rem;
+}
+
+#round-info {
+    font-family: var(--font-display);
+    font-weight: bold;
+}
+
+#battle-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    position: relative;
+    overflow-y: auto;
+}
+
+.player-area {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+}
+
+#opponent-area {
+    opacity: 0.95;
+}
+
+.player-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.player-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-badge {
+    font-size: 0.8rem;
+    background: #333;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--skill-color);
+    border: 1px solid var(--skill-color);
+}
+
+.stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.stat-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #888;
+}
+
+.hp-bar-container {
+    width: 100px;
+    height: 10px;
+    background: #333;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.hp-bar {
+    height: 100%;
+    background: var(--shoot-color);
+    transition: width 0.3s ease;
+}
+
+.ammo-display {
+    display: flex;
+    gap: 2px;
+}
+
+.ammo-pip {
+    width: 6px;
+    height: 12px;
+    background: #444;
+    border-radius: 1px;
+}
+
+.ammo-pip.active {
+    background: var(--accent-color);
+    box-shadow: 0 0 4px var(--accent-color);
+}
+
+.action-slots {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.2rem;
+    margin-top: 0.5rem;
+}
+
+.slot {
+    flex: 1;
+    height: 60px;
+    background: var(--slot-empty);
+    border: 2px solid #444;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: default;
+    transition: all 0.2s;
+}
+
+#player-slots .slot {
+    cursor: pointer;
+}
+
+#player-slots .slot:hover {
+    border-color: var(--accent-color);
+}
+
+.slot.shoot {
+    background: var(--shoot-color);
+    border-color: #ff6b81;
+}
+
+.slot.dodge {
+    background: var(--dodge-color);
+    border-color: #5352ed;
+}
+
+.slot.reload {
+    background: var(--reload-color);
+    border-color: #7bed9f;
+}
+
+.slot.skill {
+    background: var(--skill-color);
+    border-color: #ffd32a;
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.slot.unknown {
+    color: #555;
+}
+
+.slot.fizzle {
+    opacity: 0.3;
+    filter: grayscale(1);
+}
+
+/* Failed action */
+
+#center-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    padding: 0.5rem;
+    z-index: 5;
+    margin: 1rem 0;
+}
+
+#message-log {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    text-align: center;
+    color: #fff;
+    white-space: pre-line;
+}
+
+#controls {
+    padding: 1rem;
+    background: var(--panel-bg);
+    border-top: 2px solid var(--border-color);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.action-btn {
+    flex: 1;
+    height: 60px;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-display);
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+.shoot-btn {
+    background: var(--shoot-color);
+}
+
+.dodge-btn {
+    background: var(--dodge-color);
+}
+
+.reload-btn {
+    background: var(--reload-color);
+}
+
+.skill-btn {
+    background: var(--skill-color);
+    color: #000;
+}
+
+.skill-btn:disabled {
+    background: #555;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.control-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.8rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+.primary-btn {
+    background: var(--accent-color);
+    color: #000;
+    flex: 2;
+    font-size: 1.1rem;
+}
+
+.primary-btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+    color: #888;
+}
+
+.secondary-btn {
+    background: #444;
+    color: #fff;
+    flex: 1;
+}
+
+/* Overlay */
+#game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+#game-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.overlay-content {
+    text-align: center;
+}
+
+#overlay-title {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+#unlock-message {
+    color: var(--skill-color);
+    font-weight: bold;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+}
+
+.status-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+}

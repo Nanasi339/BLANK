@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>想いの海 - Ocean of Thoughts</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <canvas id="ocean-canvas"></canvas>
+        <div id="ui-layer">
+            <!-- UI Elements will be injected here -->
+        </div>
+    </div>
+    <script>
+        window.onerror = function (message, source, lineno, colno, error) {
+            alert('Error: ' + message + '\nLine: ' + lineno);
+        };
+    </script>
+    <script src="./src/storage.js"></script>
+    <script src="./src/ocean.js"></script>
+    <script src="./src/ui.js"></script>
+    <script src="./src/main.js"></script>
+</body>
+
+</html>

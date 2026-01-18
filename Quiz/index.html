@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Quiz Master | 問題集作成ツール</title>
+    <meta name="description" content="高機能で美しい、完全ローカル動作の問題集作成・解答ツール">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark-theme">
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="glass-nav">
+            <div class="logo">Quiz Master</div>
+            <div class="nav-links">
+                <button id="nav-home" class="nav-btn active">ホーム</button>
+                <button id="nav-editor" class="nav-btn">問題作成</button>
+                <button id="nav-player" class="nav-btn">問題解答</button>
+            </div>
+        </nav>
+
+        <main class="container">
+            <!-- Home View -->
+            <section id="view-home" class="view active">
+                <div class="hero">
+                    <h1>究極の問題集作成ツール</h1>
+                    <p>直感的な操作で、自分だけの問題集をデザインしましょう。</p>
+                    <div class="hero-actions">
+                        <button class="btn primary" onclick="app.showView('editor')">新しく作る</button>
+                        <button class="btn secondary"
+                            onclick="document.getElementById('file-loader').click()">読み込む</button>
+                        <input type="file" id="file-loader" style="display: none;" accept=".json">
+                    </div>
+                </div>
+                <div id="recent-quiz-list" class="quiz-grid">
+                    <!-- Recent quizzes will be listed here -->
+                </div>
+            </section>
+
+            <!-- Editor View -->
+            <section id="view-editor" class="view">
+                <div class="editor-header">
+                    <input type="text" id="quiz-title" placeholder="問題集のタイトルを入力..." class="glass-input title-input">
+                    <div class="editor-actions">
+                        <button class="btn success" id="save-quiz">保存</button>
+                        <button class="btn danger" id="clear-editor">クリア</button>
+                    </div>
+                </div>
+                <div id="question-editor-list" class="editor-body">
+                    <!-- Question items will be added here -->
+                </div>
+                <button id="add-question" class="btn primary add-btn">+ 問題を追加</button>
+            </section>
+
+            <!-- Player View -->
+            <section id="view-player" class="view">
+                <div id="player-setup" class="player-config glass-card">
+                    <h2>クイズを開始</h2>
+                    <p id="player-quiz-info">問題を選択してください。</p>
+                    <div class="mode-selection">
+                        <label class="radio-label">
+                            <input type="radio" name="play-mode" value="instant" checked>
+                            <span>一問ごとに答え合わせ</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="play-mode" value="end">
+                            <span>最後にまとめて答え合わせ</span>
+                        </label>
+                    </div>
+                    <button id="start-quiz" class="btn primary large">開始</button>
+                </div>
+
+                <div id="player-active" class="player-active" style="display: none;">
+                    <div class="player-header">
+                        <div id="progress-bar-container">
+                            <div id="progress-bar"></div>
+                        </div>
+                        <span id="player-progress-text">1 / 10</span>
+                    </div>
+                    <div id="current-question-container" class="glass-card">
+                        <!-- Current question content -->
+                    </div>
+                    <div class="player-actions">
+                        <button id="submit-answer" class="btn primary">回答する</button>
+                        <button id="next-question" class="btn secondary" style="display: none;">次へ</button>
+                        <button id="finish-quiz" class="btn success" style="display: none;">結果を見る</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Result View -->
+            <section id="view-results" class="view">
+                <div class="result-card glass-card">
+                    <h2 id="result-title">スコア結果</h2>
+                    <div class="score-display">
+                        <span id="score-value">0</span>
+                        <span id="score-total">/ 100</span>
+                    </div>
+                    <div id="result-summary" class="result-summary">
+                        <!-- Result details -->
+                    </div>
+                    <div class="result-actions">
+                        <button id="download-report" class="btn primary">レポートを出力 (Excel互換/TXT)</button>
+                        <button class="btn secondary" onclick="app.showView('home')">ホームへ戻る</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container"></div>
+    </div>
+
+    <!-- Templates -->
+    <template id="tpl-question-editor">
+        <div class="question-item glass-card" data-id="">
+            <div class="q-header">
+                <span class="q-number">Q</span>
+                <button class="btn-icon delete-q">✕</button>
+            </div>
+            <textarea class="glass-input q-text" placeholder="問題文を入力してください..."></textarea>
+            <div class="q-settings">
+                <select class="glass-select q-type">
+                    <option value="single">単一選択</option>
+                    <option value="multiple">複数選択</option>
+                </select>
+                <input type="number" class="glass-input q-points" placeholder="点数" value="10">
+            </div>
+            <textarea class="glass-input q-explanation" placeholder="解説を入力してください（任意）..."></textarea>
+            <div class="options-list">
+                <!-- Options here -->
+            </div>
+            <button class="btn-text add-option">+ 選択肢を追加</button>
+        </div>
+    </template>
+
+    <template id="tpl-option-editor">
+        <div class="option-item">
+            <input type="checkbox" class="is-correct">
+            <input type="text" class="glass-input option-text" placeholder="選択肢を入力...">
+            <button class="btn-icon delete-option">✕</button>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
