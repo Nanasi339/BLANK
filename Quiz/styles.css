@@ -437,7 +437,85 @@ body::after {
     }
 }
 
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+/* Section Styling */
+.section-item {
+    margin-bottom: 32px;
+    border-left: 4px solid var(--primary);
+}
+
+.s-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.s-title {
+    flex: 1;
+    font-size: 1.2rem !important;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.s-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.s-questions-list {
+    padding-left: 20px;
+    border-left: 2px dashed var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.question-item {
+    position: relative;
+    animation: slideIn 0.3s ease-out;
+    margin-bottom: 0px;
+    /* Overwriting previous margin */
+}
+
 /* Result Summary List */
+.section-scores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.section-score-card {
+    padding: 16px;
+    text-align: center;
+}
+
+.ssc-title {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.ssc-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.ssc-percent {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
 .result-list {
     margin-top: 32px;
     display: flex;

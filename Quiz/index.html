@@ -49,13 +49,13 @@
                     <input type="text" id="quiz-title" placeholder="問題集のタイトルを入力..." class="glass-input title-input">
                     <div class="editor-actions">
                         <button class="btn success" id="save-quiz">保存</button>
+                        <button class="btn primary" id="add-section">+ セクションを追加</button>
                         <button class="btn danger" id="clear-editor">クリア</button>
                     </div>
                 </div>
-                <div id="question-editor-list" class="editor-body">
-                    <!-- Question items will be added here -->
+                <div id="section-editor-list" class="editor-body">
+                    <!-- Section items will be added here -->
                 </div>
-                <button id="add-question" class="btn primary add-btn">+ 問題を追加</button>
             </section>
 
             <!-- Player View -->
@@ -118,6 +118,21 @@
     </div>
 
     <!-- Templates -->
+    <template id="tpl-section-editor">
+        <div class="section-item glass-card" data-id="">
+            <div class="s-header">
+                <input type="text" class="glass-input s-title" placeholder="セクション名 (例: 第1章) ...">
+                <div class="s-actions">
+                    <button class="btn primary btn-sm add-q-to-s">+ 問題を追加</button>
+                    <button class="btn-icon delete-s">✕</button>
+                </div>
+            </div>
+            <div class="s-questions-list">
+                <!-- Questions in this section -->
+            </div>
+        </div>
+    </template>
+
     <template id="tpl-question-editor">
         <div class="question-item glass-card" data-id="">
             <div class="q-header">
