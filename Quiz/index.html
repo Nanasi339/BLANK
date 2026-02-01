@@ -144,12 +144,16 @@
                 <select class="glass-select q-type">
                     <option value="single">単一選択</option>
                     <option value="multiple">複数選択</option>
+                    <option value="descriptive">記述式</option>
                 </select>
                 <input type="number" class="glass-input q-points" placeholder="点数" value="10">
             </div>
             <textarea class="glass-input q-explanation" placeholder="解説を入力してください（任意）..."></textarea>
             <div class="options-list">
                 <!-- Options here -->
+            </div>
+            <div class="short-answer-editor" style="display: none;">
+                <input type="text" class="glass-input q-correct-answer" placeholder="正解を入力（カンマ区切りで複数可: A, a）...">
             </div>
             <button class="btn-text add-option">+ 選択肢を追加</button>
         </div>

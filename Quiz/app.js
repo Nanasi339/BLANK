@@ -89,22 +89,46 @@ const app = {
         const qItem = clone.querySelector('.question-item');
         qItem.dataset.id = data?.id || Date.now() + Math.random();
 
+        const typeSelect = qItem.querySelector('.q-type');
+        const optList = qItem.querySelector('.options-list');
+        const addOptBtn = qItem.querySelector('.add-option');
+        const shortAnsEditor = qItem.querySelector('.short-answer-editor');
+        const correctAnsInput = qItem.querySelector('.q-correct-answer');
+
+        const updateTypeUI = (type) => {
+            if (type === 'descriptive') {
+                optList.style.display = 'none';
+                addOptBtn.style.display = 'none';
+                shortAnsEditor.style.display = 'block';
+            } else {
+                optList.style.display = 'block';
+                addOptBtn.style.display = 'block';
+                shortAnsEditor.style.display = 'none';
+            }
+        };
+
+        typeSelect.addEventListener('change', (e) => updateTypeUI(e.target.value));
+
         if (data) {
             qItem.querySelector('.q-text').value = data.text;
-            qItem.querySelector('.q-type').value = data.type;
+            typeSelect.value = data.type || 'single';
             qItem.querySelector('.q-points').value = data.points;
             qItem.querySelector('.q-explanation').value = data.explanation || '';
-        }
+            updateTypeUI(data.type);
 
-        const optionsList = qItem.querySelector('.options-list');
-        if (data?.options) {
-            data.options.forEach(opt => this.addOptionUI(optionsList, opt));
+            if (data.type === 'descriptive') {
+                correctAnsInput.value = Array.isArray(data.correctAnswer) ? data.correctAnswer.join(', ') : (data.correctAnswer || '');
+            } else {
+                if (data.options) {
+                    data.options.forEach(opt => this.addOptionUI(optList, opt));
+                }
+            }
         } else {
-            this.addOptionUI(optionsList);
-            this.addOptionUI(optionsList);
+            this.addOptionUI(optList);
+            this.addOptionUI(optList);
         }
 
-        qItem.querySelector('.add-option').addEventListener('click', () => this.addOptionUI(optionsList));
+        qItem.querySelector('.add-option').addEventListener('click', () => this.addOptionUI(optList));
         qItem.querySelector('.delete-q').addEventListener('click', () => qItem.remove());
 
         container.appendChild(clone);
@@ -136,22 +160,31 @@ const app = {
 
             for (const qEl of qElements) {
                 const text = qEl.querySelector('.q-text').value.trim();
-                const options = [];
-                qEl.querySelectorAll('.option-item').forEach(optEl => {
-                    options.push({
-                        text: optEl.querySelector('.option-text').value.trim(),
-                        isCorrect: optEl.querySelector('.is-correct').checked
-                    });
-                });
+                const type = qEl.querySelector('.q-type').value;
+                const points = parseInt(qEl.querySelector('.q-points').value) || 0;
+                const explanation = qEl.querySelector('.q-explanation').value.trim();
 
-                if (text && options.length > 0) {
+                if (!text) continue;
+
+                if (type === 'descriptive') {
+                    const ansStr = qEl.querySelector('.q-correct-answer').value.trim();
+                    if (!ansStr) continue;
+                    const correctAnswer = ansStr.split(',').map(s => s.trim()).filter(s => s !== '');
+
                     questions.push({
-                        id: qEl.dataset.id,
-                        text,
-                        type: qEl.querySelector('.q-type').value,
-                        points: parseInt(qEl.querySelector('.q-points').value) || 0,
-                        explanation: qEl.querySelector('.q-explanation').value.trim(),
-                        options
+                        id: qEl.dataset.id, text, type, points, explanation, correctAnswer
+                    });
+                } else {
+                    const options = [];
+                    qEl.querySelectorAll('.option-item').forEach(optEl => {
+                        options.push({
+                            text: optEl.querySelector('.option-text').value.trim(),
+                            isCorrect: optEl.querySelector('.is-correct').checked
+                        });
+                    });
+                    if (options.length === 0) continue;
+                    questions.push({
+                        id: qEl.dataset.id, text, type, points, explanation, options
                     });
                 }
             }
@@ -204,6 +237,7 @@ const app = {
 
     getFlattenedQuestions() {
         const flattened = [];
+        if (!this.state.currentQuiz.sections) return [];
         this.state.currentQuiz.sections.forEach((s, sIdx) => {
             s.questions.forEach((q, qIdx) => {
                 flattened.push({
@@ -225,44 +259,77 @@ const app = {
         document.getElementById('progress-bar').style.width = `${progress}%`;
         document.getElementById('player-progress-text').textContent = `${this.state.playing.currentIndex + 1} / ${total}`;
 
-        let optionsHtml = '';
-        q.options.forEach((opt, idx) => {
-            const inputType = q.type === 'multiple' ? 'checkbox' : 'radio';
-            optionsHtml += `
-                <label class="player-option glass-card-lite">
-                    <input type="${inputType}" name="player-choice" value="${idx}">
-                    <span class="opt-box"></span>
-                    <span class="opt-text">${this.escapeHtml(opt.text)}</span>
-                </label>
+        let interactiveHtml = '';
+        if (q.type === 'descriptive') {
+            interactiveHtml = `
+                <div class="descriptive-container">
+                    <input type="text" id="player-short-answer" class="glass-input" placeholder="回答を入力してください..." autocomplete="off">
+                </div>
             `;
-        });
+        } else {
+            let optionsHtml = '';
+            q.options.forEach((opt, idx) => {
+                const inputType = q.type === 'multiple' ? 'checkbox' : 'radio';
+                optionsHtml += `
+                    <label class="player-option glass-card-lite">
+                        <input type="${inputType}" name="player-choice" value="${idx}">
+                        <span class="opt-box"></span>
+                        <span class="opt-text">${this.escapeHtml(opt.text)}</span>
+                    </label>
+                `;
+            });
+            interactiveHtml = `<div class="options-container">${optionsHtml}</div>`;
+        }
+
+        const typeLabel = q.type === 'descriptive' ? '記述式' : (q.type === 'multiple' ? '複数選択' : '単一選択');
 
         container.innerHTML = `
             <div class="q-display">
                 <div class="q-section-badge">${this.escapeHtml(q.sectionTitle)}</div>
-                <div class="q-badge">問題 ${q.displayId} ｜ ${q.type === 'multiple' ? '複数選択' : '単一選択'} ｜ ${q.points}点</div>
+                <div class="q-badge">問題 ${q.displayId} ｜ ${typeLabel} ｜ ${q.points}点</div>
                 <div class="q-text-large">${this.escapeHtml(q.text)}</div>
-                <div class="options-container">${optionsHtml}</div>
+                ${interactiveHtml}
                 <div id="feedback-area" style="display: none;" class="feedback"></div>
             </div>
         `;
 
         document.getElementById('submit-answer').style.display = 'inline-flex';
         document.getElementById('next-question').style.display = 'none';
+
+        if (q.type === 'descriptive') {
+            document.getElementById('player-short-answer').focus();
+            document.getElementById('player-short-answer').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') this.submitAnswer();
+            });
+        }
     },
 
     submitAnswer() {
         const q = this.state.playing.flattenedQuestions[this.state.playing.currentIndex];
-        const selected = Array.from(document.querySelectorAll('input[name="player-choice"]:checked')).map(i => parseInt(i.value));
-        if (selected.length === 0) return this.toast('選択肢を選んでください');
+        let isCorrect = false;
+        let userAnswerText = '';
+        let selectedIndices = [];
 
-        const correctIndices = q.options.map((o, i) => o.isCorrect ? i : null).filter(i => i !== null);
-        const isCorrect = selected.length === correctIndices.length && selected.every(val => correctIndices.includes(val));
+        if (q.type === 'descriptive') {
+            const input = document.getElementById('player-short-answer');
+            userAnswerText = input.value.trim().toLowerCase();
+            if (!userAnswerText) return this.toast('解答を入力してください');
+
+            isCorrect = q.correctAnswer.some(ans => ans.toLowerCase().trim() === userAnswerText);
+        } else {
+            selectedIndices = Array.from(document.querySelectorAll('input[name="player-choice"]:checked')).map(i => parseInt(i.value));
+            if (selectedIndices.length === 0) return this.toast('選択肢を選んでください');
+
+            const correctIndices = q.options.map((o, i) => o.isCorrect ? i : null).filter(i => i !== null);
+            isCorrect = selectedIndices.length === correctIndices.length && selectedIndices.every(val => correctIndices.includes(val));
+            userAnswerText = selectedIndices.map(idx => q.options[idx].text).join(', ');
+        }
+
         const pointsEarned = isCorrect ? q.points : 0;
-
         this.state.playing.answers.push({
             questionIndex: this.state.playing.currentIndex,
-            selectedIndices: selected,
+            selectedIndices,
+            userAnswerText,
             isCorrect,
             pointsEarned
         });
@@ -271,7 +338,17 @@ const app = {
             const feedback = document.getElementById('feedback-area');
             feedback.style.display = 'block';
             feedback.className = isCorrect ? 'feedback correct' : 'feedback wrong';
-            let feedbackHtml = isCorrect ? '<div>正解！</div>' : `<div>不正解... 正解は: ${correctIndices.map(i => q.options[i].text).join(', ')}</div>`;
+
+            let correctInfo = '';
+            if (!isCorrect) {
+                if (q.type === 'descriptive') {
+                    correctInfo = `正解は: ${q.correctAnswer.join(' / ')}`;
+                } else {
+                    correctInfo = `正解は: ${q.options.filter(o => o.isCorrect).map(o => o.text).join(', ')}`;
+                }
+            }
+
+            let feedbackHtml = isCorrect ? '<div>正解！</div>' : `<div>不正解... ${correctInfo}</div>`;
             if (q.explanation) {
                 feedbackHtml += `<div class="explanation-box"><div class="exp-label">【解説】</div>${this.escapeHtml(q.explanation).replace(/\n/g, '<br>')}</div>`;
             }
@@ -306,25 +383,19 @@ const app = {
         document.getElementById('score-total').textContent = `/ ${totalPoints}`;
         document.getElementById('result-title').textContent = this.state.currentQuiz.title;
 
-        // Group by section for summary
         const sectionScores = {};
         this.state.currentQuiz.sections.forEach((s, idx) => {
             sectionScores[s.title] = { earned: 0, total: 0, index: idx + 1 };
         });
-
         this.state.playing.answers.forEach((ans) => {
-            const q = flattened[ans.questionIndex];
-            sectionScores[q.sectionTitle].earned += ans.pointsEarned;
+            sectionScores[flattened[ans.questionIndex].sectionTitle].earned += ans.pointsEarned;
         });
-
         flattened.forEach((q) => {
             sectionScores[q.sectionTitle].total += q.points;
         });
 
-        // Generate Detailed Summary
         const summaryContainer = document.getElementById('result-summary');
         let summaryHtml = '<div class="section-scores-grid">';
-
         Object.keys(sectionScores).forEach(title => {
             const score = sectionScores[title];
             const percent = score.total > 0 ? Math.round((score.earned / score.total) * 100) : 0;
@@ -340,7 +411,13 @@ const app = {
         summaryHtml += '<div class="result-list">';
         this.state.playing.answers.forEach((ans, i) => {
             const q = flattened[ans.questionIndex];
-            const correctIndices = q.options.map((o, idx) => o.isCorrect ? idx : null).filter(idx => idx !== null);
+            let correctStr = '';
+            if (q.type === 'descriptive') {
+                correctStr = q.correctAnswer.join(' / ');
+            } else {
+                correctStr = q.options.filter(o => o.isCorrect).map(o => o.text).join(', ');
+            }
+
             summaryHtml += `
                 <div class="result-item glass-card-lite ${ans.isCorrect ? 'is-correct' : 'is-wrong'}">
                     <div class="result-item-header">
@@ -349,8 +426,8 @@ const app = {
                     </div>
                     <div class="res-q-text">${this.escapeHtml(q.text)}</div>
                     <div class="res-answers">
-                        <div class="res-your-ans">あなたの回答: ${ans.selectedIndices.map(idx => this.escapeHtml(q.options[idx].text)).join(', ')}</div>
-                        ${!ans.isCorrect ? `<div class="res-correct-ans">正解: ${correctIndices.map(idx => this.escapeHtml(q.options[idx].text)).join(', ')}</div>` : ''}
+                        <div class="res-your-ans">あなたの回答: ${this.escapeHtml(ans.userAnswerText || '')}</div>
+                        ${!ans.isCorrect ? `<div class="res-correct-ans">正解: ${this.escapeHtml(correctStr)}</div>` : ''}
                     </div>
                     ${q.explanation ? `<div class="explanation-box"><div class="exp-label">【解説】</div>${this.escapeHtml(q.explanation).replace(/\n/g, '<br>')}</div>` : ''}
                 </div>
@@ -433,13 +510,11 @@ const app = {
         report += `スコア: ${earned} / ${total}\n`;
         report += `-------------------------------\n\n`;
 
-        // Section summary in report
         report += `【セクション別得点】\n`;
         const sectionScores = {};
         this.state.currentQuiz.sections.forEach(s => sectionScores[s.title] = { earned: 0, total: 0 });
         this.state.playing.answers.forEach(a => sectionScores[flattened[a.questionIndex].sectionTitle].earned += a.pointsEarned);
         flattened.forEach(q => sectionScores[q.sectionTitle].total += q.points);
-
         Object.keys(sectionScores).forEach(title => {
             const s = sectionScores[title];
             report += `- ${title}: ${s.earned} / ${s.total}\n`;
@@ -451,7 +526,11 @@ const app = {
             report += `[${q.displayId}] ${q.sectionTitle}\n`;
             report += `${ans.isCorrect ? '○ 正解' : '× 不正解'} (${ans.pointsEarned}点)\n`;
             report += `問題: ${q.text}\n`;
-            report += `あなたの回答: ${ans.selectedIndices.map(idx => q.options[idx].text).join(', ')}\n`;
+            report += `あなたの回答: ${ans.userAnswerText}\n`;
+            if (!ans.isCorrect) {
+                const correctStr = q.type === 'descriptive' ? q.correctAnswer.join(' / ') : q.options.filter(o => o.isCorrect).map(o => o.text).join(', ');
+                report += `正解: ${correctStr}\n`;
+            }
             if (q.explanation) report += `解説: ${q.explanation}\n`;
             report += `\n`;
         });
@@ -475,7 +554,8 @@ const app = {
 
     renderRecentQuizzes() {
         const grid = document.getElementById('recent-quiz-list');
-        const totalQ = this.getFlattenedQuestions().length;
+        const flattened = this.getFlattenedQuestions();
+        const totalQ = flattened.length;
         if (this.state.currentQuiz.title) {
             grid.innerHTML = `
                 <div class="glass-card quiz-card" onclick="app.showView('editor')">
