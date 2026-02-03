@@ -40,6 +40,10 @@ const app = {
 
         document.getElementById('file-loader').addEventListener('change', (e) => this.handleFileLoad(e));
         document.getElementById('download-report').addEventListener('click', () => this.downloadReport());
+
+        // Bottom Actions
+        document.getElementById('add-section-bottom').addEventListener('click', () => this.addSectionUI());
+        document.getElementById('save-quiz-bottom').addEventListener('click', () => this.saveQuiz());
     },
 
     showView(viewName) {
@@ -78,6 +82,7 @@ const app = {
         }
 
         sItem.querySelector('.add-q-to-s').addEventListener('click', () => this.addQuestionUI(qListContainer));
+        sItem.querySelector('.add-q-to-s-bottom').addEventListener('click', () => this.addQuestionUI(qListContainer));
         sItem.querySelector('.delete-s').addEventListener('click', () => sItem.remove());
 
         container.appendChild(clone);
